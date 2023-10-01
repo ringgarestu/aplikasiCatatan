@@ -39,7 +39,6 @@ input::placeholder, textarea::placeholder {
   color: white;
 }
 
-
 .note-app__body {
   max-width: 1000px;
   margin: 16px auto;
