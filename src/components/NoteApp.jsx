@@ -9,6 +9,7 @@ class NoteApp extends React.Component {
     this.state = {
       notes: getInitialData(),
     };
+
     this.onDeleteHandler = this.onDeleteHandler.bind(this);
     this.onAddNoteHandler = this.onAddNoteHandler.bind(this);
   }

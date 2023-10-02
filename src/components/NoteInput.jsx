@@ -3,25 +3,26 @@ import React from "react";
 class NoteInput extends React.Component {
   constructor(props) {
     super(props);
+
     this.state = {
       title: "",
       body: "",
     };
-    this.onSubmitEventHandler = this.onSubmitEventHandler.bind(this);
     this.onTitleChangeEventHandler = this.onTitleChangeEventHandler.bind(this);
     this.onBodyChangeEventHandler = this.onBodyChangeEventHandler.bind(this);
+    this.onSubmitEventHandler = this.onSubmitEventHandler.bind(this);
   }
   onBodyChangeEventHandler(event) {
     this.setState(() => {
       return {
-        name: event.target.value,
+        body: event.target.value,
       };
     });
   }
   onTitleChangeEventHandler(event) {
     this.setState(() => {
       return {
-        name: event.target.value,
+        title: event.target.value,
       };
     });
   }
@@ -33,10 +34,10 @@ class NoteInput extends React.Component {
     return (
       <div>
         <h2>Buat Catatan</h2>
-        <form>
+        <form className="note-input" onSubmit={this.onSubmitEventHandler}>
           <p className="note-input__title__char-limit">"Sisa karakter:" "50"</p>
-          <input className="note-input__title" type="text" placeholder="Ini adalah judul..." required value={this.state.title} />
-          <textarea className="note-input__body" type="text" placeholder="Tuliskan catatan kamu disini..." required value={this.state.body}></textarea>
+          <input className="note-input__title" type="text" placeholder="Ini adalah judul..." required value={this.state.title} onChange={this.onTitleChangeEventHandler} />
+          <textarea className="note-input__body" type="text" placeholder="Tuliskan catatan kamu disini..." required value={this.state.body} onChange={this.onBodyChangeEventHandler}></textarea>
           <button type="submit">Buat</button>
         </form>
       </div>
