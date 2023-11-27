@@ -1,17 +1,19 @@
 import React from "react";
 import NoteList from "./NoteList";
-import { getInitialData } from "../utils";
 import NoteInput from "./NoteInput";
+import { getInitialData } from "../utils";
 
 class NoteApp extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       notes: getInitialData(),
+      searchTerm: "",
     };
 
     this.onDeleteHandler = this.onDeleteHandler.bind(this);
     this.onAddNoteHandler = this.onAddNoteHandler.bind(this);
+    this.onSearchChange = this.onSearchChange.bind(this);
   }
   onDeleteHandler(id) {
     const notes = this.state.notes.filter((note) => note.id !== id);
@@ -34,14 +36,25 @@ class NoteApp extends React.Component {
     });
   }
 
+  onSearchChange(event) {
+    this.setState({ searchTerm: event.target.value });
+  }
+
   render() {
+    const filterdNotes = this.state.notes.filter((note) => note.title.toLowerCase().includes(this.state.searchTerm.toLowerCase()));
     return (
-      <div className="note-app">
-        <h1>Aplikasi Catatan</h1>
-        <h2>Tambah Catatan</h2>
-        <NoteInput addNote={this.onAddNoteHandler} />
-        <h2>Daftar Catatan</h2>
-        <NoteList notes={this.state.notes} onDelete={this.onDeleteHandler} />
+      <div>
+        <div className="note-app__header">
+          <h1>Aplikasi Catatan</h1>
+          <div className="note-search input">
+            <input type="text" placeholder="Cari catatan..." value={this.state.searchTerm || ""} onChange={this.onSearchChange} />
+          </div>
+        </div>
+        <div className="note-app__body">
+          <NoteInput addNote={this.onAddNoteHandler} />
+          <h2>Catatan Aktif</h2>
+          <NoteList notes={filterdNotes} onDelete={this.onDeleteHandler} />
+        </div>
       </div>
     );
   }
