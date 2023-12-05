@@ -15,7 +15,7 @@ function NoteItem({ title, body, id, createdAt, onDelete, onArchive }) {
       </div>
       <div className="note-item__action">
         <DeleteButton className="note-item__delete-button" id={id} onDelete={onDelete} />
-        <ArchivedButton className="note-item__archive-button" id={id} onArchived={onArchive} />
+        <ArchivedButton className="note-item__archive-button" id={id} onArchive={onArchive} />
       </div>
     </div>
   );
